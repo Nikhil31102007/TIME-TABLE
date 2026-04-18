@@ -1,206 +1,234 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CONFIG = {
-  frameCount: 240, // Update if you end up with 220 frames as mentioned in your other note
+  frameCount: 220,
   framePath: "/frames/",
   framePrefix: "ezgif-frame-",
   frameSuffix: ".webp",
   zeroPad: 3,
   scrollHeight: "500vh",
-  lerpSpeed: 0.10,
-  scrubSpeed: 1.5,
+  sourceFrameStart: 1,
+  playbackFrameStart: 0,
+  playbackFrameEnd: 219,
+  maxDevicePixelRatio: 2,
 } as const;
 
 export default function ScrollCanvas() {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const loadingBarRef = useRef<HTMLDivElement>(null);
-  const loadingTextRef = useRef<HTMLDivElement>(null);
+  const fallbackRef = useRef<HTMLDivElement>(null);
 
-  const frames = useRef<HTMLImageElement[]>([]);
-  const currentFrame = useRef<number>(0);
-  const targetFrame = useRef<number>(0);
-  const rafId = useRef<number | null>(null);
-
-  useEffect(() => {
-    let ctx: CanvasRenderingContext2D | null = null;
-    let loadedCount = 0;
-    let isUnmounted = false;
-
-    if (canvasRef.current) {
-      // { alpha: false } improves rendering performance since the canvas doesn't need to compute transparency behind it
-      ctx = canvasRef.current.getContext("2d", { alpha: false });
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) {
+      return;
     }
 
-    const getFramePath = (index: number) => {
-      const paddedIndex = String(index).padStart(CONFIG.zeroPad, "0");
-      return `${CONFIG.framePath}${CONFIG.framePrefix}${paddedIndex}${CONFIG.frameSuffix}`;
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) {
+      return;
+    }
+
+    const totalPlaybackFrames =
+      CONFIG.playbackFrameEnd - CONFIG.playbackFrameStart + 1;
+    if (CONFIG.frameCount !== totalPlaybackFrames) {
+      console.warn(
+        "ScrollCanvas: frameCount does not match playback range. Ensure config values are aligned.",
+      );
+    }
+    const totalFramesToLoad = totalPlaybackFrames;
+    const frames: Array<HTMLImageElement | null> = Array.from(
+      { length: totalFramesToLoad },
+      () => null,
+    );
+
+    let isUnmounted = false;
+    let activeFrame = CONFIG.playbackFrameStart;
+    let trigger: ScrollTrigger | undefined;
+    let resizeRaf: number | null = null;
+
+    const frameUrl = (logicalFrameIndex: number) => {
+      const sourceFrame = CONFIG.sourceFrameStart + logicalFrameIndex;
+      const padded = String(sourceFrame).padStart(CONFIG.zeroPad, "0");
+      return `${CONFIG.framePath}${CONFIG.framePrefix}${padded}${CONFIG.frameSuffix}`;
     };
 
-    // 5. RESIZE — recalculate canvas dimensions on window resize
     const resizeCanvas = () => {
-      if (!canvasRef.current || !ctx) return;
-      canvasRef.current.width = window.innerWidth;
-      canvasRef.current.height = window.innerHeight;
-
-      // Force an immediate redraw of the current frame on resize to prevent flicker
-      drawFrame(Math.round(currentFrame.current));
+      const dpr = Math.min(window.devicePixelRatio || 1, CONFIG.maxDevicePixelRatio);
+      const width = Math.floor(window.innerWidth * dpr);
+      const height = Math.floor(window.innerHeight * dpr);
+      canvas.width = width;
+      canvas.height = height;
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      drawFrame(activeFrame);
     };
 
-    // 3. DRAW — cover-fit frame onto canvas
+    const pickFrame = (frameIndex: number) => {
+      const clamped = Math.max(
+        CONFIG.playbackFrameStart,
+        Math.min(CONFIG.playbackFrameEnd, frameIndex),
+      );
+      const offset = clamped - CONFIG.playbackFrameStart;
+      const exact = frames[offset];
+      if (exact?.complete && exact.naturalWidth > 0) {
+        return exact;
+      }
+
+      for (let delta = 1; delta < totalFramesToLoad; delta += 1) {
+        const next = frames[offset + delta];
+        if (next?.complete && next.naturalWidth > 0) return next;
+        const prev = frames[offset - delta];
+        if (prev?.complete && prev.naturalWidth > 0) return prev;
+      }
+
+      return null;
+    };
+
     const drawFrame = (frameIndex: number) => {
-      if (!canvasRef.current || !ctx || frames.current.length === 0) return;
+      const image = pickFrame(frameIndex);
+      if (!image) {
+        return;
+      }
 
-      const img = frames.current[Math.max(0, Math.min(CONFIG.frameCount - 1, frameIndex))];
-      if (!img || !img.complete || img.naturalWidth === 0) return;
+      activeFrame = frameIndex;
 
-      const cw = canvasRef.current.width;
-      const ch = canvasRef.current.height;
-      const iw = img.naturalWidth;
-      const ih = img.naturalHeight;
-
-      // Cover math
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = image.naturalWidth;
+      const ih = image.naturalHeight;
       const scale = Math.max(cw / iw, ch / ih);
       const width = iw * scale;
       const height = ih * scale;
-      const x = (cw - width) / 2;
-      const y = (ch - height) / 2;
+      const x = (cw - width) * 0.5;
+      const y = (ch - height) * 0.5;
 
       ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, x, y, width, height);
+      ctx.drawImage(image, x, y, width, height);
     };
 
-    // 2. RAF LOOP — lerp currentFrame toward targetFrame, draw
-    const animate = () => {
-      if (isUnmounted) return;
-
-      // Lerp smoothing formula
-      currentFrame.current += (targetFrame.current - currentFrame.current) * CONFIG.lerpSpeed;
-
-      // Draw rounded frame
-      drawFrame(Math.round(currentFrame.current));
-
-      rafId.current = requestAnimationFrame(animate);
+    const onResize = () => {
+      if (resizeRaf !== null) return;
+      resizeRaf = window.requestAnimationFrame(() => {
+        resizeRaf = null;
+        resizeCanvas();
+      });
     };
 
-    // 4. SCROLLTRIGGER — map scroll progress to targetFrame
-    const initAnimation = () => {
-      if (isUnmounted) return;
+    const loadFrame = async (frameIndex: number) => {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = frameUrl(frameIndex);
+
+      try {
+        if ("decode" in image) {
+          await image.decode();
+        } else {
+          await new Promise<void>((resolve, reject) => {
+            image.onload = () => resolve();
+            image.onerror = () => reject(new Error("Failed to load frame"));
+          });
+        }
+      } catch {
+        return null;
+      }
+
+      return image;
+    };
+
+    const initialize = async () => {
       resizeCanvas();
+      const firstFrame = await loadFrame(0);
+      if (isUnmounted) return;
+      frames[0] = firstFrame;
 
-      ScrollTrigger.create({
-        trigger: containerRef.current,
+      if (firstFrame?.naturalWidth) {
+        drawFrame(CONFIG.playbackFrameStart);
+      }
+
+      await Promise.all(
+        frames.map(async (_, logicalIndex) => {
+          if (logicalIndex === 0) return;
+          const image = await loadFrame(logicalIndex);
+          if (isUnmounted) return;
+          frames[logicalIndex] = image;
+        }),
+      );
+
+      if (isUnmounted) return;
+      if (!frames.some((image) => image?.naturalWidth)) {
+        console.error(
+          "ScrollCanvas: Failed to load any frame images. Check CONFIG path/prefix/suffix.",
+        );
+        if (fallbackRef.current) {
+          fallbackRef.current.style.opacity = "1";
+        }
+        return;
+      }
+
+      if (fallbackRef.current) {
+        fallbackRef.current.style.opacity = "0";
+      }
+      drawFrame(CONFIG.playbackFrameStart);
+      const playbackRange = CONFIG.playbackFrameEnd - CONFIG.playbackFrameStart;
+
+      trigger = ScrollTrigger.create({
+        trigger: container,
         start: "top top",
         end: "bottom bottom",
-        scrub: CONFIG.scrubSpeed,
+        scrub: true,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
-          // targetFrame goes from 0 to frameCount - 1
-          targetFrame.current = self.progress * (CONFIG.frameCount - 1);
+          const frame = Math.round(
+            self.progress * playbackRange + CONFIG.playbackFrameStart,
+          );
+          drawFrame(frame);
         },
       });
 
-      rafId.current = requestAnimationFrame(animate);
-      window.addEventListener("resize", resizeCanvas);
+      window.addEventListener("resize", onResize);
+      ScrollTrigger.refresh();
     };
 
-    // 1. PRELOAD — load all Image() objects into frames[] ref
-    const preloadFrames = () => {
-      for (let i = 1; i <= CONFIG.frameCount; i++) {
-        const img = new Image();
-        img.src = getFramePath(i);
+    const gsapCtx = gsap.context(() => {
+      void initialize();
+    }, container);
 
-        img.onload = () => {
-          if (isUnmounted) return;
-          loadedCount++;
-          const progress = Math.round((loadedCount / CONFIG.frameCount) * 100);
-
-          // Bypass React state to update the loader DOM to satisfy strict performance instructions
-          if (loadingBarRef.current) {
-            loadingBarRef.current.style.width = `${progress}%`;
-          }
-          if (loadingTextRef.current) {
-            loadingTextRef.current.innerText = `LOADING... ${progress}%`;
-          }
-
-          if (loadedCount === CONFIG.frameCount) {
-            if (loaderRef.current) {
-              loaderRef.current.style.opacity = "0";
-              setTimeout(() => {
-                if (loaderRef.current) loaderRef.current.style.display = "none";
-              }, 500); // fade out wait
-            }
-            // Once all frames loaded, boot scroll trigger and animate loop
-            initAnimation();
-          }
-        };
-
-        img.onerror = () => {
-          console.error(`Failed to load image: ${img.src}`);
-          // Fallback increment so it doesn't hang infinitely if 1 frame crashes
-          loadedCount++;
-          if (loadedCount === CONFIG.frameCount && !isUnmounted) {
-            if (loaderRef.current) {
-               loaderRef.current.style.opacity = "0";
-               setTimeout(() => {
-                 if (loaderRef.current) loaderRef.current.style.display = "none";
-               }, 500);
-            }
-            initAnimation();
-          }
-        };
-
-        frames.current.push(img);
-      }
-    };
-
-    preloadFrames();
-
-    // 6. CLEANUP — kill triggers, cancel RAF on unmount
     return () => {
       isUnmounted = true;
-      if (rafId.current !== null) {
-        cancelAnimationFrame(rafId.current);
+      window.removeEventListener("resize", onResize);
+      if (resizeRaf !== null) {
+        window.cancelAnimationFrame(resizeRaf);
       }
-      window.removeEventListener("resize", resizeCanvas);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      trigger?.kill();
+      gsapCtx.revert();
     };
   }, []);
 
   return (
-    <section ref={containerRef} style={{ height: CONFIG.scrollHeight }} className="relative w-full bg-black">
+    <section
+      ref={containerRef}
+      className="relative w-full bg-black"
+      style={{ height: CONFIG.scrollHeight }}
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        
-        {/* Render Canvas */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-          style={{ willChange: "transform" }}
+          className="absolute inset-0 h-full w-full"
+          aria-hidden={true}
         />
-
-        {/* Loading Overlay */}
         <div
-          ref={loaderRef}
-          className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-500"
+          ref={fallbackRef}
+          className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm tracking-[0.2em] text-white/45 uppercase opacity-0 transition-opacity"
         >
-          <div
-            ref={loadingTextRef}
-            className="mb-4 text-xs tracking-widest text-white/50 uppercase"
-          >
-            LOADING... 0%
-          </div>
-          <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden">
-            <div
-              ref={loadingBarRef}
-              className="h-full bg-white transition-all duration-100 w-0"
-            />
-          </div>
+          Frames unavailable
         </div>
       </div>
     </section>

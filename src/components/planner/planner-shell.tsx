@@ -11,6 +11,7 @@ import { HeroSection } from "@/components/planner/hero-section";
 import { ProgressTracker } from "@/components/planner/progress-tracker";
 import { SectionNav } from "@/components/planner/section-nav";
 import { TimetableSection } from "@/components/planner/timetable-section";
+import ScrollCanvas from "@/components/ScrollCanvas";
 import { Card } from "@/components/ui/card";
 import {
   getSubjectStorageKey,
@@ -72,6 +73,7 @@ export function PlannerShell() {
       <div className="relative overflow-x-clip pb-10">
         <HeroSection />
         <SectionNav />
+        <ScrollCanvas />
 
         <section className="px-5 pb-8 pt-14 sm:px-8">
           <div className="mx-auto max-w-7xl space-y-5">
