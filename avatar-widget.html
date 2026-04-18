@@ -1,0 +1,362 @@
+<!-- Drop the <style>, <div id="op-widget">, and <script> blocks into your page body -->
+<style>
+  /* Base widget styling */
+  #op-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Speech Bubble styling */
+  .op-bubble {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #fff;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    max-width: 250px;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    visibility: hidden;
+  }
+  .op-bubble.op-show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+  
+  /* Close button inside bubble */
+  .op-bubble-close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #888;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .op-bubble-close:hover {
+    color: #000;
+  }
+
+  /* Gentle bubble variation */
+  .op-bubble.gentle {
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+  }
+  .op-bubble.gentle::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    border-width: 8px 8px 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  /* Rude bubble variation */
+  .op-bubble.rude {
+    background: #111;
+    color: #e53e3e;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #333;
+  }
+  .op-bubble.rude::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    border-width: 8px 8px 0;
+    border-style: solid;
+    border-color: #111 transparent transparent transparent;
+  }
+  .op-bubble.rude .op-bubble-close {
+    color: #555;
+  }
+  .op-bubble.rude .op-bubble-close:hover {
+    color: #e53e3e;
+  }
+
+  /* Avatar container */
+  .op-avatar-container {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    cursor: pointer;
+    /* User interactions */
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Stacked avatars */
+  .op-avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: opacity 0.3s ease, transform 0.18s ease;
+  }
+  
+  /* Avatar 1: Gentle */
+  .op-avatar-1 {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(60, 140, 220, 0.4);
+    animation: op-float 3s ease-in-out infinite, op-pulse-gentle 2.5s infinite;
+  }
+  
+  /* Avatar 2: Rude */
+  .op-avatar-2 {
+    opacity: 0;
+    box-shadow: 0 0 20px rgba(220, 40, 40, 0.6);
+  }
+
+  /* Hover state - Switch to Avatar 2 */
+  .op-avatar-container:hover .op-avatar-1 {
+    opacity: 0;
+    animation: none;
+  }
+  .op-avatar-container:hover .op-avatar-2 {
+    opacity: 1;
+    transform: scale(1.1);
+    animation: op-shake 0.18s ease-in-out infinite, op-pulse-rude 0.9s infinite;
+  }
+
+  /* Focus Mode - Lock Avatar 2 */
+  .op-widget.focus-mode .op-avatar-1 {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+  .op-widget.focus-mode .op-avatar-2 {
+    opacity: 1 !important;
+    transform: scale(1.1);
+    animation: op-pulse-focus 0.7s infinite;
+  }
+
+  /* Keyframes */
+  @keyframes op-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes op-shake {
+    0%, 100% { transform: rotate(0deg) scale(1.1); }
+    25% { transform: rotate(-2.5deg) scale(1.1); }
+    75% { transform: rotate(2.5deg) scale(1.1); }
+  }
+  @keyframes op-pulse-gentle {
+    0%, 100% { box-shadow: 0 0 10px rgba(60, 140, 220, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(60, 140, 220, 0.6); }
+  }
+  @keyframes op-pulse-rude {
+    0%, 100% { box-shadow: 0 0 15px rgba(220, 40, 40, 0.6); }
+    50% { box-shadow: 0 0 35px rgba(220, 40, 40, 0.9); }
+  }
+  @keyframes op-pulse-focus {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+    50% { box-shadow: 0 0 40px rgba(255, 0, 0, 1); }
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 480px) {
+    .op-avatar-container {
+      width: 56px;
+      height: 56px;
+    }
+    .op-bubble {
+      max-width: 180px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<div id="op-widget" class="op-widget">
+  <div class="op-bubble gentle" id="op-bubble">
+    <span class="op-bubble-close" id="op-bubble-close" title="Close bubble">&times;</span>
+    <div id="op-bubble-text"></div>
+  </div>
+  <div class="op-avatar-container" id="op-avatar-container">
+    <img src="avatar/avatar1.png" alt="Avatar Relaxed" class="op-avatar op-avatar-1">
+    <img src="avatar/avatar2.png" alt="Avatar Serious" class="op-avatar op-avatar-2">
+  </div>
+</div>
+
+<script>
+(function() {
+  const avatar1Quotes = [
+    "If you don't take risks, you can't create a future.\" — Monkey D. Luffy",
+    "When I decided to follow this dream, I had already discarded my life.\" — Roronoa Zoro",
+    "By experiencing both victory and defeat… you become a great man.\" — Shanks",
+    "When do you think people die? When they are forgotten.\" — Dr. Hiluluk",
+    "No matter how hard or impossible it is, never lose sight of your goal.\" — Usopp",
+    "Inherited will, the destiny of the age, and the dreams of the people… these things cannot be stopped.\" — Gol D. Roger",
+    "What keeps me alive is not your strength, but my own will.\" — Brook",
+    "Don't just count the things you have lost! What is gone is gone!\" — Jinbe",
+    "You can't bring back what you've lost, think about what you have now!\" — Tony Tony Chopper",
+    "If you don't fight, you can't win!\" — Eustass Kid",
+    "I don't want to conquer anything. I just think the guy with the most freedom in this whole ocean… is the Pirate King.\" — Monkey D. Luffy",
+    "It's not about if I can. I'm doing this because I want to.\" — Monkey D. Luffy",
+    "As long as I'm still alive, I have infinite chances.\" — Monkey D. Luffy",
+    "I've never done a single thing in my life that I regret.\" — Roronoa Zoro",
+    "Even if it's unsightly… I'll live!\" — Usopp",
+    "I want to live!\" — Nico Robin",
+    "Your existence isn't a sin!\" — Franky",
+    "No one is born into this world to be alone.\" — Sabo",
+    "Surpass me, Roronoa Zoro!\" — Dracule Mihawk",
+    "Maybe we trust each other because we all do whatever we can.\" — Nami"
+  ];
+  
+  const avatar2Quotes = [
+    "Stop dreaming and START DOING. Luffy didn't become King by sitting still. GET UP.",
+    "Zoro trained until he BLED. You're complaining about one study session? PATHETIC.",
+    "Scars on the back are a swordsman's shame. Stop running from the hard chapters.",
+    "Roger had a FATAL DISEASE and still made it to Laugh Tale. What's YOUR excuse?",
+    "Whitebeard conquered the seas with one arm. You have two hands and a textbook. NO EXCUSES.",
+    "If you quit now, you will ALWAYS quit. That's not the way of the pirate. KEEP GOING.",
+    "The weak don't get to decide anything, not even how they die. Stop being weak.\" — Law",
+    "Zoro said 'nothing happened' after nearly dying. You said 'I'm tired' after one hour. THINK.",
+    "Your future self is watching you RIGHT NOW. Don't you dare disappoint them.",
+    "Pain is temporary. Failing because you were lazy — that's FOREVER.",
+    "If I give up now, I'll regret it! — Luffy said that. You should too. NOW MOVE.",
+    "There are times when a man must stay and fight instead of running. This is that time.\" — Usopp",
+    "The weak don't get to dream. Prove you're not weak. OPEN THE BOOK.",
+    "You think you're tired? Zoro trained blindfolded with ankle weights. SIT DOWN AND STUDY."
+  ];
+
+  let quoteIndex1 = 0;
+  let quoteIndex2 = 0;
+  let isHovering = false;
+  let isFocusMode = false;
+  let cycleTimerId = null;
+  let hideTimerId = null;
+  let currentMode = null; // 'gentle' or 'rude'
+  
+  const widget = document.getElementById('op-widget');
+  const container = document.getElementById('op-avatar-container');
+  const bubble = document.getElementById('op-bubble');
+  const bubbleText = document.getElementById('op-bubble-text');
+  const closeBtn = document.getElementById('op-bubble-close');
+  
+  function showBubble(text, mode, hideAfter) {
+    if (currentMode && currentMode !== mode) {
+      bubble.classList.remove(currentMode);
+    }
+    bubble.classList.add(mode);
+    currentMode = mode;
+    bubbleText.innerHTML = text;
+    bubble.classList.add('op-show');
+    
+    if (hideTimerId) clearTimeout(hideTimerId);
+    if (hideAfter > 0) {
+      hideTimerId = setTimeout(() => {
+        bubble.classList.remove('op-show');
+      }, hideAfter);
+    }
+  }
+  
+  function triggerGentleQuote() {
+    if (isHovering || isFocusMode) return;
+    const quote = avatar1Quotes[quoteIndex1];
+    quoteIndex1 = (quoteIndex1 + 1) % avatar1Quotes.length;
+    showBubble(`"${quote}`, 'gentle', 6000);
+  }
+  
+  function triggerRudeQuote() {
+    if (!isHovering && !isFocusMode) return;
+    if (isFocusMode) {
+      showBubble("FOCUS. NOTHING ELSE EXISTS.", 'rude', 0);
+      return;
+    }
+    const quote = avatar2Quotes[quoteIndex2];
+    quoteIndex2 = (quoteIndex2 + 1) % avatar2Quotes.length;
+    showBubble(quote, 'rude', 0); // stays while hovering
+  }
+  
+  function startGentleCycle() {
+    clearTimers();
+    cycleTimerId = setInterval(triggerGentleQuote, 18000); // 18s cycle
+  }
+  
+  function startRudeCycle() {
+    clearTimers();
+    triggerRudeQuote(); // Show immediately on transition to rude state
+    cycleTimerId = setInterval(triggerRudeQuote, 10000); // 10s cycle
+  }
+  
+  function clearTimers() {
+    if (cycleTimerId) clearInterval(cycleTimerId);
+    if (hideTimerId) clearTimeout(hideTimerId);
+  }
+  
+  // -- Event Listeners --
+
+  container.addEventListener('mouseenter', () => {
+    if (isFocusMode) return;
+    isHovering = true;
+    startRudeCycle();
+  });
+  
+  container.addEventListener('mouseleave', () => {
+    if (isFocusMode) return;
+    isHovering = false;
+    bubble.classList.remove('op-show'); // crossfade back to avatar 1 triggers auto hide
+    startGentleCycle();
+  });
+  
+  container.addEventListener('click', () => {
+    if (isFocusMode) return;
+    if (isHovering) {
+      triggerRudeQuote();
+      // Restart the 10s rude cycle relative to the click
+      startRudeCycle(); 
+    } else {
+      triggerGentleQuote();
+      // Restart the 18s gentle cycle relative to the click
+      startGentleCycle(); 
+    }
+  });
+  
+  container.addEventListener('dblclick', (e) => {
+    e.preventDefault(); // Prevent text selection
+    isFocusMode = !isFocusMode;
+    
+    if (isFocusMode) {
+      widget.classList.add('focus-mode');
+      clearTimers();
+      showBubble("FOCUS. NOTHING ELSE EXISTS.", 'rude', 0);
+    } else {
+      widget.classList.remove('focus-mode');
+      if (isHovering) {
+        startRudeCycle();
+      } else {
+        bubble.classList.remove('op-show');
+        startGentleCycle();
+      }
+    }
+  });
+  
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Avoid triggering container clicks
+    bubble.classList.remove('op-show');
+  });
+
+  // Start with a gentle greeting shortly after mount
+  setTimeout(() => triggerGentleQuote(), 2000);
+  startGentleCycle();
+})();
+</script>

@@ -1,0 +1,65 @@
+/* Scroll Animation System Styles */
+
+/* The canvas that renders the background frames */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  /* GPU acceleration */
+  will-change: transform;
+}
+
+/* Wrapper to create the scrollable space */
+#scroll-anim-wrapper {
+  position: relative;
+  width: 100%;
+  /* Min height is injected dynamically by JS from CONFIG.scrollHeight */
+  /* Put your content inside this wrapper, layered on top of the canvas */
+}
+
+/* Full-screen loading overlay */
+#frame-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b0b0b;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+/* Loading text */
+.loading-text {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Loading bar container */
+.loading-bar-container {
+  width: 60%;
+  max-width: 400px;
+  height: 4px;
+  background-color: #333;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* The actual progress bar */
+#loading-bar-progress {
+  width: 0%;
+  height: 100%;
+  background-color: #fff;
+  transition: width 0.1s linear;
+}

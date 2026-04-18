@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface-2: #151515;
+  --primary: #2563eb;
+  --accent: #f59e0b;
+  --text-primary: #f5f5f5;
+  --muted: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-body-ui);
+  --font-display: var(--font-display-ui);
+  --font-mono: var(--font-mono-ui);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.08), transparent 30%),
+    radial-gradient(circle at 85% 14%, rgba(245, 158, 11, 0.06), transparent 24%),
+    linear-gradient(180deg, #0d0d0d 0%, #121212 48%, #0d0d0d 100%);
+  color: var(--text-primary);
+  font-family: var(--font-body-ui), sans-serif;
+  min-height: 100%;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, black 22%, transparent 82%);
+  opacity: 0.32;
+}
+
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.08), transparent 18%),
+    radial-gradient(circle at 90% 22%, rgba(255, 255, 255, 0.05), transparent 14%);
+  opacity: 0.4;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.3);
+  color: var(--text-primary);
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.hero-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+input[type="range"] {
+  background: transparent;
+}

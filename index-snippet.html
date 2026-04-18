@@ -1,0 +1,33 @@
+<!-- 
+  NOTE: PASTE THIS AT THE END OF YOUR <head> 
+-->
+<link rel="stylesheet" href="scroll-bg.css">
+
+<!-- 
+  NOTE: PASTE THIS ANYWHERE IN <body>, IDEALLY RIGHT AFTER opening <body> 
+-->
+<canvas id="bg-canvas"></canvas>
+
+<!-- LOADING SCREEN -->
+<div id="frame-loader">
+  <div class="loading-text">Loading cinematic experience...</div>
+  <div class="loading-bar-container">
+    <div id="loading-bar-progress"></div>
+  </div>
+</div>
+
+<!-- 
+  NOTE: WRAP YOUR EXISTING SITE CONTENT IN THIS DIV 
+-->
+<div id="scroll-anim-wrapper">
+  <!-- 
+    Your existing website content goes here.
+    Make sure content elements that need background transparency have transparent backgrounds, 
+    so the canvas shows through.
+  -->
+</div>
+
+<!-- 
+  NOTE: PASTE THIS RIGHT BEFORE CLOSING </body> 
+-->
+<script src="scroll-bg.js"></script>

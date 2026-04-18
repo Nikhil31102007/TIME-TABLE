@@ -1,0 +1,1073 @@
+{
+  "generatedAt": "2026-04-17T15:45:57.333Z",
+  "overview": {
+    "stats": [
+      {
+        "label": "Days to exams",
+        "value": 23
+      },
+      {
+        "label": "Hackathon days lost",
+        "value": 4
+      },
+      {
+        "label": "Effective study days",
+        "value": 19
+      }
+    ],
+    "timeline": [
+      {
+        "label": "Phase 1 — Coverage",
+        "weight": 7,
+        "variant": "bfull"
+      },
+      {
+        "label": "Hackathon",
+        "weight": 4,
+        "variant": "bhack"
+      },
+      {
+        "label": "Phase 2 — Revision",
+        "weight": 7,
+        "variant": "bhalf"
+      },
+      {
+        "label": "Phase 3 — Mock",
+        "weight": 5,
+        "variant": "blight"
+      },
+      {
+        "label": "Exam",
+        "weight": 2,
+        "variant": "bexam"
+      }
+    ],
+    "legends": [
+      "Full day — Sat/Sun",
+      "Half day — Thu/Fri after 1 PM",
+      "Light day — Mon–Wed (~90 min)",
+      "Hackathon — no study"
+    ],
+    "phaseCards": [
+      {
+        "id": "phase-1-apr-18-may-1",
+        "title": "Phase 1 Apr 18 – May 1",
+        "items": [
+          "→ Cover all 5 units of DSA, Chem, Math, BEEE",
+          "→ Front-load hardest subjects before hackathon",
+          "→ Light days = review only, not new content",
+          "→ Before Apr 24: photograph all notes"
+        ]
+      },
+      {
+        "id": "phase-2-may-2-may-8",
+        "title": "Phase 2 May 2 – May 8",
+        "items": [
+          "→ Cover Bioinformatics, CW, UHV on full days",
+          "→ First revision cycle for all 4 core subjects",
+          "→ PYQ solving begins — 2 subjects minimum",
+          "→ Build 1-page summary per subject"
+        ]
+      },
+      {
+        "id": "phase-3-may-9-may-10",
+        "title": "Phase 3 May 9 – May 10",
+        "items": [
+          "→ Timed mock tests (20 marks each subject)",
+          "→ Fix only identified weak areas",
+          "→ Formula sheet + keyword review only",
+          "→ No new topics after May 9 morning"
+        ]
+      },
+      {
+        "id": "hackathon-recovery-strategy",
+        "title": "Hackathon recovery strategy",
+        "items": [
+          "→ Apr 28: half-effort only — decompress first",
+          "→ Catch-up via pre-made notes, not re-learning",
+          "→ Hackathon nights: optional 15-min mental review",
+          "→ Keep a \"where I left off\" card per subject"
+        ]
+      }
+    ],
+    "subjectHours": [
+      {
+        "subject": "DSA",
+        "hoursLabel": "~18h",
+        "hours": 18,
+        "progressPercent": 26
+      },
+      {
+        "subject": "Chemistry",
+        "hoursLabel": "~16h",
+        "hours": 16,
+        "progressPercent": 22
+      },
+      {
+        "subject": "Mathematics",
+        "hoursLabel": "~16h",
+        "hours": 16,
+        "progressPercent": 22
+      },
+      {
+        "subject": "BEEE",
+        "hoursLabel": "~14h",
+        "hours": 14,
+        "progressPercent": 19
+      },
+      {
+        "subject": "Bioinformatics",
+        "hoursLabel": "~10h",
+        "hours": 10,
+        "progressPercent": 14
+      },
+      {
+        "subject": "Computer Workshop",
+        "hoursLabel": "~6h",
+        "hours": 6,
+        "progressPercent": 9
+      },
+      {
+        "subject": "UHV",
+        "hoursLabel": "~4h",
+        "hours": 4,
+        "progressPercent": 5
+      }
+    ]
+  },
+  "phases": {
+    "phase1": [
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-saturday-april-18",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Saturday, April 18",
+        "subtitle": "Day 1",
+        "note": "Priority: DSA deep dive (searching + sorting) + Chemistry U1",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:00–8:30 AM",
+            "text": "Plan the day, review goals, warm up. Write today's target on paper.",
+            "subjects": []
+          },
+          {
+            "time": "8:30–10:30 AM",
+            "text": "DSA Unit 1 — Searching: linear search, binary search. Write pseudocode + trace an example array on paper.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "10:30–10:45 AM",
+            "text": "Break — stretch, water, no screen.",
+            "subjects": []
+          },
+          {
+            "time": "10:45 AM–12:45 PM",
+            "text": "DSA Unit 2 — Sorting: bubble, selection, insertion, merge sort. Write time complexity table. Trace at least one sort by hand.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "12:45–2:00 PM",
+            "text": "Lunch + rest (mandatory — no phone study).",
+            "subjects": []
+          },
+          {
+            "time": "2:00–4:00 PM",
+            "text": "Chemistry Unit 1 — Read full unit, make short bullet notes, mark key reactions/formulas.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "4:00–4:20 PM",
+            "text": "Break — walk if possible.",
+            "subjects": []
+          },
+          {
+            "time": "4:20–6:00 PM",
+            "text": "DSA Revision — Make 1 algorithm card per sorting/searching method. Trace each from memory.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "6:00–6:30 PM",
+            "text": "Daily review: what's clear? what's fuzzy? write 3 confusion points. Sleep on it.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-sunday-april-19",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Sunday, April 19",
+        "subtitle": "Day 2",
+        "note": "Priority: DSA completion (stack, queue, linked list) + Math U1",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:30–10:30 AM",
+            "text": "DSA Unit 3 — Stack: LIFO, push/pop/peek, applications (expression evaluation, balanced brackets), array + linked list implementation.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "10:30–10:45 AM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "10:45 AM–12:30 PM",
+            "text": "DSA Unit 4 — Queue: FIFO, enqueue/dequeue, circular queue, deque. Draw memory diagrams.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "12:30–2:00 PM",
+            "text": "Lunch + rest.",
+            "subjects": []
+          },
+          {
+            "time": "2:00–3:30 PM",
+            "text": "DSA Unit 5 — Linked List: singly, doubly, circular. Insert/delete at head, tail, middle — trace each operation with boxes and arrows.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "3:30–3:45 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:45–5:45 PM",
+            "text": "Mathematics Unit 1 — Read unit, solve all textbook examples (show full working). Mark formulas in a box.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "5:45–6:30 PM",
+            "text": "DSA complete review: trace 1 algorithm for each of the 5 topics from memory. Mark confusion points.",
+            "subjects": [
+              "DSA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-monday-april-20",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Monday, April 20",
+        "subtitle": "Day 3 — ~90 min, evening only",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "Chemistry Unit 2 — Read + underline key concepts + reactions. Aim for coverage, not mastery.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "Flashcard review: DSA Units 1+2 — name each algorithm, state its complexity in 10 seconds flat.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-tuesday-april-21",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Tuesday, April 21",
+        "subtitle": "Day 4",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "Mathematics Unit 2 — Read + solve 5 examples. Write formulas on a sticky note.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "DSA Unit 3 review — trace stack push/pop for an expression on paper.",
+            "subjects": [
+              "DSA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-wednesday-april-22",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Wednesday, April 22",
+        "subtitle": "Day 5",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "BEEE Unit 1 — Circuit laws: Ohm's law, KCL, KVL. Read + solve 3 numerical problems.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "Chemistry Unit 1 flashcard review — key reactions from memory.",
+            "subjects": [
+              "Chemistry"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-thursday-april-23",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "day",
+        "badge": "Half day",
+        "title": "Thursday, April 23",
+        "subtitle": "Day 6 — Last day before hackathon",
+        "note": "After 1 PM only. Critical: photograph all notes today before you leave.",
+        "description": "",
+        "blocks": [
+          {
+            "time": "1:00–3:00 PM",
+            "text": "BEEE Unit 2 — AC circuits, phasors, RLC circuits. Make notes + solve 5 numericals.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "3:00–3:20 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:20–5:00 PM",
+            "text": "BEEE Unit 3 — Transformers, semiconductor basics. Overview + key concepts only.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "5:00–5:45 PM",
+            "text": "Pre-hackathon prep: photograph all notes. Write a \"where I left off\" card for each subject. Pack it with you.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-1-apr-18-23-pre-hackathon-sprint-april-24-27-fri-mon",
+        "week": "Week 1 — Apr 18–23 — Pre-hackathon sprint",
+        "kind": "hackathon",
+        "badge": "Hackathon — No study",
+        "title": "April 24–27 (Fri–Mon)",
+        "subtitle": "",
+        "note": "",
+        "description": "No formal study sessions. Optional: 10–15 min mental review before sleeping — just flip through your \"where I left off\" card. Don't feel guilty. The hackathon is also building you. Come back rested on April 28.",
+        "blocks": []
+      },
+      {
+        "id": "week-2-apr-28-may-1-post-hackathon-recovery-coverage-finish-tuesday-april-28",
+        "week": "Week 2 — Apr 28 – May 1 — Post-hackathon recovery + coverage finish",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Tuesday, April 28",
+        "subtitle": "Recovery day — ease back in gently",
+        "note": "Don't push hard. Just re-engage the brain. 1 hour max.",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:00 PM",
+            "text": "Chemistry — Re-read your own notes for Units 1+2 only. Refresh, no new content.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "8:00–8:30 PM",
+            "text": "Review your \"where I left off\" cards. Plan the next 4 days in writing.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-2-apr-28-may-1-post-hackathon-recovery-coverage-finish-wednesday-april-29",
+        "week": "Week 2 — Apr 28 – May 1 — Post-hackathon recovery + coverage finish",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Wednesday, April 29",
+        "subtitle": "Day 8",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:15 PM",
+            "text": "Chemistry Unit 3 — Read + notes. 45 minutes, no more.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "8:15–9:00 PM",
+            "text": "Mathematics Unit 3 — Read + 3 examples. 45 minutes.",
+            "subjects": [
+              "Mathematics"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-2-apr-28-may-1-post-hackathon-recovery-coverage-finish-thursday-april-30",
+        "week": "Week 2 — Apr 28 – May 1 — Post-hackathon recovery + coverage finish",
+        "kind": "day",
+        "badge": "Half day",
+        "title": "Thursday, April 30",
+        "subtitle": "Day 9",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "1:00–3:00 PM",
+            "text": "BEEE Unit 4 — Diodes, rectifiers, clipper/clamper circuits. Notes + 4 solved problems.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "3:00–3:20 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:20–5:00 PM",
+            "text": "BEEE Unit 5 — Transistors, amplifiers, logic gates. Complete coverage. Make formula list.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "5:00–5:30 PM",
+            "text": "Mathematics Unit 4 — Read key theorems + attempt 3 problems.",
+            "subjects": [
+              "Mathematics"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-2-apr-28-may-1-post-hackathon-recovery-coverage-finish-friday-may-1",
+        "week": "Week 2 — Apr 28 – May 1 — Post-hackathon recovery + coverage finish",
+        "kind": "day",
+        "badge": "Half day",
+        "title": "Friday, May 1",
+        "subtitle": "Day 10 — Phase 1 closes today",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "1:00–3:00 PM",
+            "text": "Chemistry Units 4+5 — Focus on mechanisms and reaction sequences. Coverage complete today.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "3:00–3:20 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:20–5:00 PM",
+            "text": "Mathematics Unit 5 — Read + 5 examples. Math coverage complete today.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "5:00–5:30 PM",
+            "text": "Coverage audit: mark each of the 35 units as Done / Partial / Skipped. Plan Phase 2 accordingly.",
+            "subjects": []
+          }
+        ]
+      }
+    ],
+    "phase2": [
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-saturday-may-2",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Saturday, May 2",
+        "subtitle": "Day 11",
+        "note": "Bioinformatics coverage + Chemistry revision cycle 1",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:30–10:30 AM",
+            "text": "Bioinformatics Units 1+2 — Sequence alignment, BLAST, databases. Read + notes + key diagrams.",
+            "subjects": [
+              "Bioinformatics"
+            ]
+          },
+          {
+            "time": "10:30–10:45 AM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "10:45 AM–12:30 PM",
+            "text": "Bioinformatics Unit 3 — Phylogenetics, genomics. Notes + draw phylogenetic tree structure.",
+            "subjects": [
+              "Bioinformatics"
+            ]
+          },
+          {
+            "time": "12:30–2:00 PM",
+            "text": "Lunch + rest.",
+            "subjects": []
+          },
+          {
+            "time": "2:00–3:30 PM",
+            "text": "Computer Workshop Units 1+2 — Practical concepts, commands, key task workflows.",
+            "subjects": [
+              "Computer Workshop"
+            ]
+          },
+          {
+            "time": "3:30–3:45 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:45–5:30 PM",
+            "text": "Chemistry — Revision cycle 1: Units 1+2+3. Use your notes only — no textbook. Rewrite unclear points.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "5:30–6:00 PM",
+            "text": "PYQ session: 5 past Chemistry questions. Attempt without notes first, then check.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-sunday-may-3",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Sunday, May 3",
+        "subtitle": "Day 12",
+        "note": "Complete minor subjects + Math revision cycle 1",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:30–10:30 AM",
+            "text": "Bioinformatics Units 4+5 — Drug discovery, proteomics, bioinformatics applications. Full coverage.",
+            "subjects": [
+              "Bioinformatics"
+            ]
+          },
+          {
+            "time": "10:30–10:45 AM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "10:45 AM–12:15 PM",
+            "text": "Computer Workshop Units 3+4+5 — Remaining units. Focus on what's likely in exams (practical tasks).",
+            "subjects": [
+              "Computer Workshop"
+            ]
+          },
+          {
+            "time": "12:15–2:00 PM",
+            "text": "Lunch + rest.",
+            "subjects": []
+          },
+          {
+            "time": "2:00–3:30 PM",
+            "text": "UHV Units 1+2+3 — Read through, underline key philosophical concepts, note definitions.",
+            "subjects": [
+              "UHV"
+            ]
+          },
+          {
+            "time": "3:30–3:45 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:45–5:45 PM",
+            "text": "Mathematics — Revision cycle 1: Units 1+2+3. Redo examples without solution — check after.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "5:45–6:15 PM",
+            "text": "PYQ session: 5 past Mathematics questions. Show all steps even for questions you struggle with.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-monday-may-4",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Monday, May 4",
+        "subtitle": "Day 13",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "UHV Units 4+5 — Complete coverage. Make a 1-page summary of all 5 units. Easy marks, don't over-invest.",
+            "subjects": [
+              "UHV"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "DSA PYQ — Solve 4 past questions on searching/sorting. Trace the algorithm, don't just write the answer.",
+            "subjects": [
+              "DSA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-tuesday-may-5",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Tuesday, May 5",
+        "subtitle": "Day 14",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "Chemistry — Revision cycle 1 finish: Units 4+5. Focus on reactions you couldn't recall last time.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "DSA PYQ — 4 questions on stack/queue/linked list. Draw boxes and pointers, not just words.",
+            "subjects": [
+              "DSA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-wednesday-may-6",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Light day",
+        "title": "Wednesday, May 6",
+        "subtitle": "Day 15",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "7:00–8:30 PM",
+            "text": "Mathematics — Revision cycle 1 finish: Units 4+5. Rework problem types you got wrong. Focus on method, not answer.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "8:30–9:00 PM",
+            "text": "Subject audit: review your Done/Partial/Skipped checklist. Flag weak spots for May 7–8.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-thursday-may-7",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Half day",
+        "title": "Thursday, May 7",
+        "subtitle": "Day 16",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "1:00–3:00 PM",
+            "text": "BEEE — Full revision all 5 units. Minimum 3 numericals per unit. Draw circuit diagrams clearly.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "3:00–3:20 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:20–5:00 PM",
+            "text": "Bioinformatics — Full revision all 5 units. Make 1-page visual summary. Definitions + flowcharts win here.",
+            "subjects": [
+              "Bioinformatics"
+            ]
+          },
+          {
+            "time": "5:00–5:30 PM",
+            "text": "PYQ: 5 BEEE questions + 5 Bioinformatics questions — timed (10 min per question max).",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "week-3-may-2-8-complete-minor-subjects-first-revision-cycle-friday-may-8",
+        "week": "Week 3 — May 2–8 — Complete minor subjects + first revision cycle",
+        "kind": "day",
+        "badge": "Half day",
+        "title": "Friday, May 8",
+        "subtitle": "Day 17 — Phase 2 closes today",
+        "note": "",
+        "description": "",
+        "blocks": [
+          {
+            "time": "1:00–2:30 PM",
+            "text": "DSA — Full revision all 5 topics. Trace 1 algorithm per topic from scratch. Write time/space complexity.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "2:30–3:30 PM",
+            "text": "Computer Workshop + UHV — Quick skim of your 1-page summaries. Identify likely questions.",
+            "subjects": [
+              "Computer Workshop",
+              "UHV"
+            ]
+          },
+          {
+            "time": "3:30–3:50 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "3:50–5:30 PM",
+            "text": "Build your \"Last 2 Days Cheat Sheet\" — 1 A4 page per subject. Only what you keep forgetting. This is your exam-day lifeline.",
+            "subjects": []
+          }
+        ]
+      }
+    ],
+    "phase3": [
+      {
+        "id": "may-9-10-final-mock-tests-and-last-revision-saturday-may-9",
+        "week": "May 9–10 — Final mock tests and last revision",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Saturday, May 9",
+        "subtitle": "Day 18 — Simulate the exam",
+        "note": "Timed mock conditions. No notes during the attempt — check only after.",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:30–10:30 AM",
+            "text": "Chemistry Mock — Attempt 20 marks of PYQ under timed conditions. Mark yourself strictly.",
+            "subjects": [
+              "Chemistry"
+            ]
+          },
+          {
+            "time": "10:30–11:00 AM",
+            "text": "Chemistry review — note every error type. Don't re-read full units. Patch only the gaps.",
+            "subjects": []
+          },
+          {
+            "time": "11:00–11:15 AM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "11:15 AM–1:15 PM",
+            "text": "Mathematics Mock — 20 marks PYQ. Check step-by-step. Part marks matter — show all work.",
+            "subjects": [
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "1:15–2:30 PM",
+            "text": "Lunch + rest (mandatory).",
+            "subjects": []
+          },
+          {
+            "time": "2:30–4:00 PM",
+            "text": "BEEE Mock — 20 marks. Mix of numericals and theory. Draw diagrams for full marks.",
+            "subjects": [
+              "BEEE"
+            ]
+          },
+          {
+            "time": "4:00–4:20 PM",
+            "text": "Break.",
+            "subjects": []
+          },
+          {
+            "time": "4:20–5:30 PM",
+            "text": "DSA Mock — Trace 2 algorithms from scratch + answer 3 theory questions without notes.",
+            "subjects": [
+              "DSA"
+            ]
+          },
+          {
+            "time": "5:30–6:30 PM",
+            "text": "Error analysis — make a \"weak points only\" list per subject. This becomes your May 10 morning checklist.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "may-9-10-final-mock-tests-and-last-revision-sunday-may-10",
+        "week": "May 9–10 — Final mock tests and last revision",
+        "kind": "day",
+        "badge": "Full day",
+        "title": "Sunday, May 10",
+        "subtitle": "Day 19 — Last day before exams",
+        "note": "No new topics today. Fix known gaps only. Brain off by 9 PM.",
+        "description": "",
+        "blocks": [
+          {
+            "time": "8:30–10:00 AM",
+            "text": "Chemistry + Mathematics — Address May 9 weak points only. Use cheat sheets, not full notes.",
+            "subjects": [
+              "Chemistry",
+              "Mathematics"
+            ]
+          },
+          {
+            "time": "10:00–11:30 AM",
+            "text": "BEEE + DSA — Fix gaps from mock. Re-attempt 2 problems you got wrong yesterday.",
+            "subjects": [
+              "BEEE",
+              "DSA"
+            ]
+          },
+          {
+            "time": "11:30 AM–12:30 PM",
+            "text": "Bioinformatics + Computer Workshop + UHV — Final skim of 1-page summaries only.",
+            "subjects": [
+              "Bioinformatics",
+              "Computer Workshop",
+              "UHV"
+            ]
+          },
+          {
+            "time": "12:30–2:00 PM",
+            "text": "Lunch + rest (mandatory).",
+            "subjects": []
+          },
+          {
+            "time": "2:00–4:00 PM",
+            "text": "Read all cheat sheets one final time. Don't write — just read and let it consolidate.",
+            "subjects": []
+          },
+          {
+            "time": "4:00–5:00 PM",
+            "text": "Walk, relax, light music. No study at all.",
+            "subjects": []
+          },
+          {
+            "time": "5:00–6:00 PM",
+            "text": "Optional: reattempt 2–3 problems you couldn't solve before. Light confidence boost only.",
+            "subjects": []
+          },
+          {
+            "time": "Evening",
+            "text": "Pack exam bag. Lay out everything. Sleep by 10 PM. Memory consolidates during sleep — trust it.",
+            "subjects": []
+          }
+        ]
+      },
+      {
+        "id": "may-9-10-final-mock-tests-and-last-revision-monday-may-11-onwards",
+        "week": "May 9–10 — Final mock tests and last revision",
+        "kind": "exam",
+        "badge": "Exam season begins",
+        "title": "Monday, May 11 onwards",
+        "subtitle": "",
+        "note": "",
+        "description": "On each exam morning: review your 1-page cheat sheet only. Eat a proper meal. Arrive 10 minutes early. In the exam: attempt all questions, show all working, define before explaining. You've done the work — trust it.",
+        "blocks": []
+      }
+    ]
+  },
+  "strategy": {
+    "cards": [
+      {
+        "id": "deep-work-session-structure",
+        "title": "Deep work session structure",
+        "items": [
+          "→ Ideal block: 90–100 min, no phone, no interruptions",
+          "→ Full days: 2 blocks AM + 2 blocks PM (max 4 blocks)",
+          "→ Half days: 1 block + 1 shorter block (60–75 min)",
+          "→ Light days: 1 block only, low pressure, no guilt",
+          "→ Break between blocks: 15–20 min hard limit",
+          "→ Never study 2 similar subjects back to back"
+        ]
+      },
+      {
+        "id": "pyq-timing-strategy",
+        "title": "PYQ timing strategy",
+        "items": [
+          "→ DSA: May 4–5 (after full coverage + 1 week gap)",
+          "→ Chemistry: May 2 + May 5 (during revision)",
+          "→ Mathematics: May 3 + May 6",
+          "→ BEEE: May 7",
+          "→ Bio / CW / UHV: May 7–8",
+          "→ Rule: always attempt without notes first, then check"
+        ]
+      },
+      {
+        "id": "3-cycle-revision-system",
+        "title": "3-cycle revision system",
+        "items": [
+          "→ Cycle 1 — Coverage (Apr 18–May 1): first read, rough notes",
+          "→ Cycle 2 — Compression (May 2–8): notes → 1-page summaries",
+          "→ Cycle 3 — Triggers (May 9–10): summaries → keywords only",
+          "→ Each cycle should take 40% less time than the previous one"
+        ]
+      },
+      {
+        "id": "the-40-50-scoring-formula",
+        "title": "The 40/50 scoring formula",
+        "items": [
+          "→ 5 units × ~8 marks = 40. Coverage beats perfection.",
+          "→ Know 1–2 \"anchor questions\" per unit — guaranteed marks",
+          "→ Learn all definitions — 1–2 marks each, easy to get",
+          "→ Math/BEEE: show working even if answer is wrong (part marks)",
+          "→ DSA: trace examples with diagrams — examiner loves diagrams",
+          "→ Bio/UHV: keywords in answers = higher marks, even if vague"
+        ]
+      },
+      {
+        "id": "daily-tracking-system",
+        "title": "Daily tracking system",
+        "items": [
+          "→ Each morning: write today's 1 priority target on paper",
+          "→ Each evening: mark units as Done / Partial / Skipped",
+          "→ Rate each study session: 1–5 (energy × output)",
+          "→ Every Sunday: recalibrate next week's plan based on what's pending",
+          "→ Backlog rule: never carry more than 1 item to the next day"
+        ]
+      },
+      {
+        "id": "burnout-prevention-rules",
+        "title": "Burnout prevention rules",
+        "items": [
+          "→ Never study past 10 PM — sleep is the final revision",
+          "→ One guilt-free hour per day (non-study, any activity)",
+          "→ If exhausted: 20-min nap beats 60 min of bad study",
+          "→ Progress over perfection — 6 units covered > 2 units perfect",
+          "→ Don't compare pace with others — you have different constraints"
+        ]
+      }
+    ],
+    "subjectTactics": [
+      {
+        "subject": "DSA",
+        "body": "Trace every algorithm on paper. Draw array boxes for searching/sorting. Draw linked nodes with arrows. Never just read — always trace with a pencil."
+      },
+      {
+        "subject": "Chemistry",
+        "body": "Reactions + mechanisms are most of the marks. Make a master reaction sheet. Read it every night before bed. 10 key reactions per unit minimum."
+      },
+      {
+        "subject": "Mathematics",
+        "body": "Practice problems, not theory reading. At least 5 problems per topic. Show every step in exam — method marks are real even when answer is wrong."
+      },
+      {
+        "subject": "BEEE",
+        "body": "Numericals = guaranteed marks. Solve at least 3 per sub-topic. Always draw the circuit diagram. Label everything — examiners give marks for labeled diagrams."
+      },
+      {
+        "subject": "Bioinformatics",
+        "body": "Mostly theory and definitions. One-page visual summary per unit with a flowchart. Write answers using subject-specific vocabulary — it signals you know the topic."
+      },
+      {
+        "subject": "UHV",
+        "body": "1-credit subject — don't over-invest. 4 hours total is the ceiling. Learn 3 probable long-answer questions and 10 definitions. That's enough for a good score."
+      }
+    ]
+  },
+  "fallback": [
+    {
+      "id": "fallen-behind-by-1-2-days",
+      "title": "Fallen behind by 1–2 days",
+      "items": [
+        "→ Don't try to catch everything at once — pick the highest-credit subject and cover that unit first",
+        "→ Compress 2 units into one session: skim reading + key notes only (no deep examples)",
+        "→ Downgrade UHV and Computer Workshop to \"notes skim only\" — buys you 3–4 hours back",
+        "→ Use next full day (Sat/Sun) as a dedicated catch-up block before moving forward"
+      ],
+      "variant": "border-color:var(--color-border-danger);"
+    },
+    {
+      "id": "fallen-behind-by-3-5-days",
+      "title": "Fallen behind by 3–5 days",
+      "items": [
+        "→ Drop revision cycle 2 for UHV and Computer Workshop — 1 read is enough for those subjects",
+        "→ Use May 9 as an emergency coverage day for incomplete subjects instead of a mock day",
+        "→ Priority order: DSA → Chemistry → Mathematics → BEEE → Bioinformatics → CW → UHV",
+        "→ Minimum viable target: 3 units fully covered + 2 units skimmed = still achievable 30–35 per subject"
+      ],
+      "variant": "border-color:var(--color-border-warning);"
+    },
+    {
+      "id": "emergency-last-48-hours-protocol",
+      "title": "Emergency last-48-hours protocol",
+      "items": [
+        "→ Read ONLY your self-made notes — no textbooks, no YouTube, no new sources",
+        "→ Per topic: 1 definition + 1 formula + 1 example. That's the minimum viable unit.",
+        "→ DSA: memorize algorithm steps in plain English — examiner gives marks for structured answers",
+        "→ Chemistry: master 10 key reactions per unit — even partially written reactions score",
+        "→ Math/BEEE: practice 2 numericals per unit — method + diagram = most of the marks",
+        "→ Skip anything you haven't started — sunk cost. Strengthen what you know. That's the play."
+      ],
+      "variant": ""
+    },
+    {
+      "id": "daily-backlog-check-every-evening",
+      "title": "Daily backlog check — every evening",
+      "items": [
+        "→ Ask yourself: \"Did I hit today's target?\" Yes = great. No = note exactly what's pending.",
+        "→ Carry over only 1 item to tomorrow — don't create a snowball of tasks",
+        "→ If 3+ items are piling up: declare a \"catch-up Saturday\" and clear everything in one block",
+        "→ The rule: no backlog survives past the next full day. If it does, drop the lowest-priority item entirely."
+      ],
+      "variant": ""
+    }
+  ]
+}
