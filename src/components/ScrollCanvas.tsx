@@ -7,7 +7,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CONFIG = {
-  frameCount: 240,
+  frameCount: 220,
   framePath: "/frames/",
   framePrefix: "ezgif-frame-",
   frameSuffix: ".webp",
@@ -22,6 +22,7 @@ const CONFIG = {
 export default function ScrollCanvas() {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fallbackRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -37,7 +38,12 @@ export default function ScrollCanvas() {
 
     const totalPlaybackFrames =
       CONFIG.playbackFrameEnd - CONFIG.playbackFrameStart + 1;
-    const totalFramesToLoad = Math.min(CONFIG.frameCount, totalPlaybackFrames);
+    if (CONFIG.frameCount !== totalPlaybackFrames) {
+      console.warn(
+        "ScrollCanvas: frameCount does not match playback range. Ensure config values are aligned.",
+      );
+    }
+    const totalFramesToLoad = totalPlaybackFrames;
     const frames: Array<HTMLImageElement | null> = Array.from(
       { length: totalFramesToLoad },
       () => null,
@@ -46,6 +52,7 @@ export default function ScrollCanvas() {
     let isUnmounted = false;
     let activeFrame = CONFIG.playbackFrameStart;
     let trigger: ScrollTrigger | undefined;
+    let resizeRaf: number | null = null;
 
     const frameUrl = (logicalFrameIndex: number) => {
       const sourceFrame = CONFIG.sourceFrameStart + logicalFrameIndex;
@@ -67,7 +74,7 @@ export default function ScrollCanvas() {
     const pickFrame = (frameIndex: number) => {
       const clamped = Math.max(
         CONFIG.playbackFrameStart,
-        Math.min(CONFIG.playbackFrameStart + totalFramesToLoad - 1, frameIndex),
+        Math.min(CONFIG.playbackFrameEnd, frameIndex),
       );
       const offset = clamped - CONFIG.playbackFrameStart;
       const exact = frames[offset];
@@ -107,6 +114,14 @@ export default function ScrollCanvas() {
       ctx.drawImage(image, x, y, width, height);
     };
 
+    const onResize = () => {
+      if (resizeRaf !== null) return;
+      resizeRaf = window.requestAnimationFrame(() => {
+        resizeRaf = null;
+        resizeCanvas();
+      });
+    };
+
     const loadFrame = async (frameIndex: number) => {
       const image = new Image();
       image.decoding = "async";
@@ -130,9 +145,17 @@ export default function ScrollCanvas() {
 
     const initialize = async () => {
       resizeCanvas();
+      const firstFrame = await loadFrame(0);
+      if (isUnmounted) return;
+      frames[0] = firstFrame;
+
+      if (firstFrame?.naturalWidth) {
+        drawFrame(CONFIG.playbackFrameStart);
+      }
 
       await Promise.all(
         frames.map(async (_, logicalIndex) => {
+          if (logicalIndex === 0) return;
           const image = await loadFrame(logicalIndex);
           if (isUnmounted) return;
           frames[logicalIndex] = image;
@@ -141,10 +164,20 @@ export default function ScrollCanvas() {
 
       if (isUnmounted) return;
       if (!frames.some((image) => image?.naturalWidth)) {
+        console.error(
+          "ScrollCanvas: Failed to load any frame images. Check CONFIG path/prefix/suffix.",
+        );
+        if (fallbackRef.current) {
+          fallbackRef.current.style.opacity = "1";
+        }
         return;
       }
 
+      if (fallbackRef.current) {
+        fallbackRef.current.style.opacity = "0";
+      }
       drawFrame(CONFIG.playbackFrameStart);
+      const playbackRange = CONFIG.playbackFrameEnd - CONFIG.playbackFrameStart;
 
       trigger = ScrollTrigger.create({
         trigger: container,
@@ -154,13 +187,13 @@ export default function ScrollCanvas() {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const frame = Math.round(
-            self.progress * (totalFramesToLoad - 1) + CONFIG.playbackFrameStart,
+            self.progress * playbackRange + CONFIG.playbackFrameStart,
           );
           drawFrame(frame);
         },
       });
 
-      window.addEventListener("resize", resizeCanvas);
+      window.addEventListener("resize", onResize);
       ScrollTrigger.refresh();
     };
 
@@ -170,7 +203,10 @@ export default function ScrollCanvas() {
 
     return () => {
       isUnmounted = true;
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", onResize);
+      if (resizeRaf !== null) {
+        window.cancelAnimationFrame(resizeRaf);
+      }
       trigger?.kill();
       gsapCtx.revert();
     };
@@ -186,8 +222,14 @@ export default function ScrollCanvas() {
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full"
-          aria-hidden
+          aria-hidden={true}
         />
+        <div
+          ref={fallbackRef}
+          className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm tracking-[0.2em] text-white/45 uppercase opacity-0 transition-opacity"
+        >
+          Frames unavailable
+        </div>
       </div>
     </section>
   );
